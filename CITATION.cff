@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use or adapt this code, please credit it as below."
+title: "P-H3 Control: MiniMax H3 Fun ControlNet for P-H3-Image (ComfyUI)"
+authors:
+  - family-names: Torney
+    given-names: Ruben
+version: 0.4.0-experimental
+date-released: 2026-11-11
+license: MIT
+repository-code: "https://github.com/RubenTorney/comfyui-ph3-control"

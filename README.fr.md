@@ -133,7 +133,8 @@ COMFYUI_PATH=/chemin/vers/ComfyUI python -I tests/run_tests.py     # Python de C
 
 ## Licence et crédits
 
-Code : MIT (`LICENSE`). Aucun poids redistribué ; MiniMax H3, le patch et P-H3-Image sont sous la **MiniMax H3 Community License**
+Code : MIT, Copyright (c) 2026 Ruben Torney (`LICENSE`). En cas de réutilisation ou d'adaptation, conserver la mention de copyright et
+créditer « P-H3 Control par Ruben Torney » avec un lien vers ce dépôt (citation : `CITATION.cff`). Aucun poids redistribué ; MiniMax H3, le patch et P-H3-Image sont sous la **MiniMax H3 Community License**
 (`NOTICE`, `third_party/`), avec des restrictions territoriales (UE, Royaume-Uni, Corée du Sud, États-Unis) : vérifiez que vous pouvez les utiliser.
 La petite table adaLN de `ph3_control/data/` relève de cette licence, pas de MIT ; `scripts/build_release.sh --no-table` produit un pack
 sans elle (voir `NOTICE`). Powered by MiniMax H3. Crédits : MiniMax, alibaba-pai (VideoX-Fun), Comfy-Org, PrunaAI. Images de démo générées par IA.
