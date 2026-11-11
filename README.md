@@ -35,6 +35,21 @@ Lossless PNG originals are attached to the [v0.4.0-experimental release](https:/
 Why 4 MP: generating at 1 MP and re-rendering at 16 MP copies the small image's flaws (waxy skin, blotchy freckles);
 a direct 8 MP control lets the pose drift. 4 MP direct keeps both the pose and a natural skin.
 
+## Character consistency, extreme poses
+
+One new character made with P-H3 (`assets/demo/extreme/character_reference.jpg`), then given as `<Picture 1>` together with
+the control: six hard poses, 4 MP each, about 50 s on an RTX 3090. Skeleton in the corner of each photo.
+
+![Reference character in six extreme poses](assets/demo/extreme_poses.jpg)
+
+| ![Reference](assets/demo/extreme/character_reference.jpg) | ![Standing split](assets/demo/extreme/standing_split_4mp.jpg) | ![One-arm handstand](assets/demo/extreme/one_arm_handstand_4mp.jpg) | ![Tuck jump](assets/demo/extreme/tuck_jump_4mp.jpg) |
+|---|---|---|---|
+| ![Grand jete](assets/demo/extreme/grand_jete_4mp.jpg) | ![Lying, legs up](assets/demo/extreme/lying_legs_up_4mp.jpg) | ![Backbend](assets/demo/extreme/backbend_4mp.jpg) | |
+
+*Same face, platinum pixie cut, nose ring, swallow tattoo and outfit in every shot. A side-view skeleton does not say which way
+the body faces: the grand jeté came out seen from behind and the backbend as a forward bend (describe the facing in the prompt,
+or use a depth map). Describe the pose in the prompt as well: the control guides, the text confirms.*
+
 ## Hands
 
 Add the 21-point hand skeletons (DWPose / OpenPose format) to the body skeleton, **and name the gesture in the prompt**.

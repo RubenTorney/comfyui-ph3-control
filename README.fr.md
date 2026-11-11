@@ -35,6 +35,21 @@ Originaux PNG sans perte joints à la [release v0.4.0-experimental](https://gith
 Pourquoi 4 Mpx : générer à 1 Mpx puis refaire l'image à 16 Mpx recopie les défauts de la petite image (peau cireuse, taches
 de rousseur en pâté) ; un contrôle direct à 8 Mpx laisse dériver la pose. Le 4 Mpx direct garde la pose et une peau naturelle.
 
+## Consistance du personnage, poses extrêmes
+
+Un nouveau personnage créé avec P-H3 (`assets/demo/extreme/character_reference.jpg`), puis donné en `<Picture 1>` avec le
+contrôle : six poses difficiles, 4 Mpx chacune, environ 50 s sur une RTX 3090. Squelette en vignette dans chaque photo.
+
+![Personnage de référence dans six poses extrêmes](assets/demo/extreme_poses.jpg)
+
+| ![Référence](assets/demo/extreme/character_reference.jpg) | ![Grand écart debout](assets/demo/extreme/standing_split_4mp.jpg) | ![Appui sur une main](assets/demo/extreme/one_arm_handstand_4mp.jpg) | ![Saut groupé](assets/demo/extreme/tuck_jump_4mp.jpg) |
+|---|---|---|---|
+| ![Grand jeté](assets/demo/extreme/grand_jete_4mp.jpg) | ![Allongée, jambes en l'air](assets/demo/extreme/lying_legs_up_4mp.jpg) | ![Pont](assets/demo/extreme/backbend_4mp.jpg) | |
+
+*Même visage, même pixie platine, anneau au nez, tatouage d'hirondelle et tenue sur toutes les photos. Un squelette vu de profil ne
+dit pas de quel côté le corps est tourné : le grand jeté est sorti vu de dos et le pont en flexion avant (préciser l'orientation dans
+le prompt, ou utiliser une carte de profondeur). Décrire aussi la pose dans le prompt : le contrôle guide, le texte confirme.*
+
 ## Mains
 
 Ajouter au squelette du corps les squelettes de mains à 21 points (format DWPose / OpenPose), **et nommer le geste dans le prompt**.
