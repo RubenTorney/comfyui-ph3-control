@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.safetensors.part
+*.pt
+.venv/
+out/
+.DS_Store
+dist/

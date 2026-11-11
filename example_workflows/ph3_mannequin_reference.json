@@ -1,0 +1,716 @@
+{
+ "id": "8f0d1c9a-0f3a-4c52-9b3e-0a1b2c3d4e5f",
+ "revision": 0,
+ "last_node_id": 15,
+ "last_link_id": 15,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      1
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "p-h3-image_int8_convrot.safetensors",
+    "default"
+   ],
+   "title": "P-H3-Image model"
+  },
+  {
+   "id": 2,
+   "type": "MiniMaxH3SigmaShift",
+   "pos": [
+    380,
+    40
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      6
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3SigmaShift"
+   },
+   "widgets_values": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "id": 3,
+   "type": "CLIPLoader",
+   "pos": [
+    40,
+    170
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      3
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "p-h3-image_text_encoder_int8_convrot.safetensors",
+    "minimax",
+    "default"
+   ]
+  },
+  {
+   "id": 4,
+   "type": "VAELoader",
+   "pos": [
+    40,
+    310
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      4,
+      14
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "p-h3-image_vae_bf16.safetensors"
+   ]
+  },
+  {
+   "id": 5,
+   "type": "Note",
+   "pos": [
+    40,
+    760
+   ],
+   "size": [
+    420,
+    220
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "Note"
+   },
+   "widgets_values": [
+    "No ControlNet, no patch. A white mannequin with grey outlines is Picture 1 and the prompt uses the official H3 grammar (<Picture 1>, <Subject 1>, 'partially preserved'). Draw the mannequin with any pose editor (a ready example is provided), put it in ComfyUI/input, change the scene at the end of the prompt. Faster than the ControlNet, a bit less exact. Experimental."
+   ],
+   "title": "Read me",
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 6,
+   "type": "LoadImage",
+   "pos": [
+    40,
+    450
+   ],
+   "size": [
+    300,
+    300
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      2
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": [],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "mannequin_duo_9x16.png",
+    "image"
+   ],
+   "title": "Mannequin (Picture 1)"
+  },
+  {
+   "id": 7,
+   "type": "ImageScaleToTotalPixels",
+   "pos": [
+    380,
+    450
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      5
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageScaleToTotalPixels"
+   },
+   "widgets_values": [
+    "lanczos",
+    1.0,
+    32
+   ]
+  },
+  {
+   "id": 8,
+   "type": "PH3ImageConditioning",
+   "pos": [
+    380,
+    170
+   ],
+   "size": [
+    360,
+    220
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 3
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 4
+    },
+    {
+     "name": "images.image_1",
+     "type": "IMAGE",
+     "link": 5
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      7
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      12
+     ],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "PH3ImageConditioning"
+   },
+   "widgets_values": [
+    "Edit <Picture 1>. The two white mannequins with grey outlines in <Picture 1> are <Subject 1>. The target image keeps the composition of <Picture 1> and turns <Subject 1> into real people in a photorealistic photograph. <Subject 1> is partially preserved; the body pose, the angle of every limb, the camera viewpoint, the framing and the size and position of each figure remain, while their surface becomes real people with clothes. The grey backdrop is replaced by the real scene; no mannequin texture, outline or grey background remains. Acrobatic duo on a sunny tropical beach: a man in black swim trunks holds a wide squat and lifts his partner with one raised arm; she, in a red swimsuit, does a one-arm handstand on his hand, legs in a split. Bright daylight, sports photography.",
+    768,
+    1344
+   ]
+  },
+  {
+   "id": 9,
+   "type": "BasicGuider",
+   "pos": [
+    780,
+    40
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 6
+    },
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 7
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      9
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicGuider"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 10,
+   "type": "RandomNoise",
+   "pos": [
+    780,
+    140
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      8
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "RandomNoise"
+   },
+   "widgets_values": [
+    42,
+    "randomize"
+   ]
+  },
+  {
+   "id": 11,
+   "type": "KSamplerSelect",
+   "pos": [
+    780,
+    240
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      10
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "euler"
+   ]
+  },
+  {
+   "id": 12,
+   "type": "ManualSigmas",
+   "pos": [
+    780,
+    320
+   ],
+   "size": [
+    300,
+    90
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      11
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ManualSigmas"
+   },
+   "widgets_values": [
+    "1.0, 0.984753, 0.967905, 0.951688, 0.925372, 0.881923, 0.810083, 0.528718, 0.0"
+   ]
+  },
+  {
+   "id": 13,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    1110,
+    140
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 8
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 9
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 10
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 11
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 12
+    }
+   ],
+   "outputs": [
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      13
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 14,
+   "type": "VAEDecode",
+   "pos": [
+    1130,
+    40
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 13
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 14
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      15
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 15,
+   "type": "SaveImage",
+   "pos": [
+    1130,
+    120
+   ],
+   "size": [
+    320,
+    340
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 15
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "ph3_mannequin_reference"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "MODEL"
+  ],
+  [
+   2,
+   6,
+   0,
+   7,
+   0,
+   "IMAGE"
+  ],
+  [
+   3,
+   3,
+   0,
+   8,
+   0,
+   "CLIP"
+  ],
+  [
+   4,
+   4,
+   0,
+   8,
+   1,
+   "VAE"
+  ],
+  [
+   5,
+   7,
+   0,
+   8,
+   2,
+   "IMAGE"
+  ],
+  [
+   6,
+   2,
+   0,
+   9,
+   0,
+   "MODEL"
+  ],
+  [
+   7,
+   8,
+   0,
+   9,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   8,
+   10,
+   0,
+   13,
+   0,
+   "NOISE"
+  ],
+  [
+   9,
+   9,
+   0,
+   13,
+   1,
+   "GUIDER"
+  ],
+  [
+   10,
+   11,
+   0,
+   13,
+   2,
+   "SAMPLER"
+  ],
+  [
+   11,
+   12,
+   0,
+   13,
+   3,
+   "SIGMAS"
+  ],
+  [
+   12,
+   8,
+   1,
+   13,
+   4,
+   "LATENT"
+  ],
+  [
+   13,
+   13,
+   0,
+   14,
+   0,
+   "LATENT"
+  ],
+  [
+   14,
+   4,
+   0,
+   14,
+   1,
+   "VAE"
+  ],
+  [
+   15,
+   14,
+   0,
+   15,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.6,
+   "offset": [
+    0,
+    0
+   ]
+  }
+ },
+ "version": 0.4
+}

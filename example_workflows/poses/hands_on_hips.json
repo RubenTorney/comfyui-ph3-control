@@ -1,0 +1,1 @@
+{"angles": {"pelvis": [0, 0, 4], "head": [0, 0, -4], "r_shoulder": [-4, -90, 39], "l_shoulder": [-4, -90, 39], "r_elbow": [75, 0, 43], "l_elbow": [75, 0, 43], "r_hip": [0, 0, 6], "l_hip": [0, 0, 2], "l_knee": [-6, 0, 0]}, "camera": {"azimuth": 0, "elevation": 0, "distance": 5}, "frame": "full", "lift": 0}

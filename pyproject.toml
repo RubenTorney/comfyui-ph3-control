@@ -1,0 +1,18 @@
+[project]
+name = "comfyui-ph3-control"
+version = "0.4.0-experimental"
+description = "MiniMax H3 Fun ControlNet (pose, depth, edges) for the P-H3-Image model in ComfyUI: one easy node, no 20 GB video model needed."
+readme = "README.md"
+classifiers = ["Development Status :: 3 - Alpha"]
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []          # ComfyUI >= 0.44 and what it ships (torch, safetensors, huggingface_hub)
+
+[project.urls]
+Repository = "https://github.com/RubenTorney/comfyui-ph3-control"
+
+[tool.comfy]
+PublisherId = "TODO-PUBLISHER-ID"   # TODO: Comfy Registry publisher id (registry.comfy.org, without the @)
+DisplayName = "P-H3 Control (MiniMax H3 Fun ControlNet for P-H3-Image)"
+Icon = ""                           # TODO (optional): URL of a 400x400 icon
+includes = []

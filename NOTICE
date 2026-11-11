@@ -1,0 +1,20 @@
+MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, Copyright © 2026 MiniMax. All Rights Reserved.
+
+P-H3 Control (comfyui-ph3-control)
+Code: MIT License, Copyright (c) 2026 Ruben Torney (see LICENSE).
+
+This repository contains no model weights. It works with, and ships one small numerical table
+(ph3_control/data/ph3_adaln_map.safetensors, 16x8 matrix + 8 bias values fitted from the adaLN time tables of
+P-H3-Image and of the MiniMax H3 model) computed only from the time-embedding tables (adaln_t_table) of those models, with no layer weights. That table is
+distributed under the MiniMax H3 Community License Agreement (copy in third_party/MiniMax-H3-LICENSE.txt) and not
+under the MIT license; the file was produced by the authors of this repository (modified/derived work).
+
+Third-party components used with this pack (downloaded separately by the user, not included):
+- MiniMax H3 and the MiniMax H3 Fun ControlNet Union patch: MiniMax H3 Community License Agreement
+  (https://huggingface.co/MiniMaxAI/MiniMax-H3); Fun ControlNet design by alibaba-pai (VideoX-Fun, Apache-2.0);
+  packaging by Comfy-Org (https://huggingface.co/Comfy-Org/MiniMax-H3).
+- P-H3-Image (PrunaAI): MiniMax H3 Community License Agreement; its text encoder parts based on Qwen3-VL are
+  Apache-2.0 (https://huggingface.co/PrunaAI/P-H3-Image).
+- ComfyUI: GPL-3.0 (this pack is loaded by ComfyUI; it does not include ComfyUI code).
+
+Images in assets/demo/ are AI-generated (MiniMax H3 based model, P-H3-Image with this pack).

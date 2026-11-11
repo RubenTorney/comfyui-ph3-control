@@ -1,0 +1,193 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "p-h3-image_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "_meta": {
+   "title": "P-H3-Image model"
+  }
+ },
+ "2": {
+  "class_type": "MiniMaxH3SigmaShift",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "shift_video": 1.0,
+   "shift_audio": 1.0
+  },
+  "_meta": {
+   "title": "MiniMaxH3SigmaShift"
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "p-h3-image_text_encoder_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "CLIPLoader"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "p-h3-image_vae_bf16.safetensors"
+  },
+  "_meta": {
+   "title": "VAELoader"
+  }
+ },
+ "6": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "mannequin_duo_9x16.png"
+  },
+  "_meta": {
+   "title": "Mannequin (Picture 1)"
+  }
+ },
+ "7": {
+  "class_type": "ImageScaleToTotalPixels",
+  "inputs": {
+   "image": [
+    "6",
+    0
+   ],
+   "upscale_method": "lanczos",
+   "megapixels": 1.0,
+   "resolution_steps": 32
+  },
+  "_meta": {
+   "title": "ImageScaleToTotalPixels"
+  }
+ },
+ "8": {
+  "class_type": "PH3ImageConditioning",
+  "inputs": {
+   "clip": [
+    "3",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ],
+   "images.image_1": [
+    "7",
+    0
+   ],
+   "prompt": "Edit <Picture 1>. The two white mannequins with grey outlines in <Picture 1> are <Subject 1>. The target image keeps the composition of <Picture 1> and turns <Subject 1> into real people in a photorealistic photograph. <Subject 1> is partially preserved; the body pose, the angle of every limb, the camera viewpoint, the framing and the size and position of each figure remain, while their surface becomes real people with clothes. The grey backdrop is replaced by the real scene; no mannequin texture, outline or grey background remains. Acrobatic duo on a sunny tropical beach: a man in black swim trunks holds a wide squat and lifts his partner with one raised arm; she, in a red swimsuit, does a one-arm handstand on his hand, legs in a split. Bright daylight, sports photography.",
+   "width": 768,
+   "height": 1344
+  },
+  "_meta": {
+   "title": "PH3ImageConditioning"
+  }
+ },
+ "9": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "2",
+    0
+   ],
+   "conditioning": [
+    "8",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "BasicGuider"
+  }
+ },
+ "10": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 42
+  },
+  "_meta": {
+   "title": "RandomNoise"
+  }
+ },
+ "11": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "12": {
+  "class_type": "ManualSigmas",
+  "inputs": {
+   "sigmas": "1.0, 0.984753, 0.967905, 0.951688, 0.925372, 0.881923, 0.810083, 0.528718, 0.0"
+  },
+  "_meta": {
+   "title": "ManualSigmas"
+  }
+ },
+ "13": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "10",
+    0
+   ],
+   "guider": [
+    "9",
+    0
+   ],
+   "sampler": [
+    "11",
+    0
+   ],
+   "sigmas": [
+    "12",
+    0
+   ],
+   "latent_image": [
+    "8",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "14": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "13",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAEDecode"
+  }
+ },
+ "15": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "14",
+    0
+   ],
+   "filename_prefix": "ph3_mannequin_reference"
+  },
+  "_meta": {
+   "title": "SaveImage"
+  }
+ }
+}

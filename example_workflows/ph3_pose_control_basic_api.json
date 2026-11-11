@@ -1,0 +1,231 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "p-h3-image_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "_meta": {
+   "title": "P-H3-Image model"
+  }
+ },
+ "2": {
+  "class_type": "MiniMaxH3SigmaShift",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "shift_video": 1.0,
+   "shift_audio": 1.0
+  },
+  "_meta": {
+   "title": "MiniMaxH3SigmaShift"
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "p-h3-image_text_encoder_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "CLIPLoader"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "p-h3-image_vae_bf16.safetensors"
+  },
+  "_meta": {
+   "title": "VAELoader"
+  }
+ },
+ "6": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "depth_dance_9x16.png"
+  },
+  "_meta": {
+   "title": "Control image (depth / pose / edges)"
+  }
+ },
+ "7": {
+  "class_type": "PH3PrepareControlImage",
+  "inputs": {
+   "image": [
+    "6",
+    0
+   ],
+   "width": 768,
+   "height": 1344,
+   "fit": "fit",
+   "background": "black",
+   "invert": false
+  },
+  "_meta": {
+   "title": "PH3PrepareControlImage"
+  }
+ },
+ "8": {
+  "class_type": "PH3ImageConditioning",
+  "inputs": {
+   "clip": [
+    "3",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ],
+   "prompt": "A woman in a red jacket dancing in a sunlit street, one arm raised high, the other arm bent, hips swaying, full body, natural light, 35mm photo",
+   "width": 768,
+   "height": 1344
+  },
+  "_meta": {
+   "title": "PH3ImageConditioning"
+  }
+ },
+ "9": {
+  "class_type": "PH3ControlSimple",
+  "inputs": {
+   "model": [
+    "2",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ],
+   "control_image": [
+    "7",
+    0
+   ],
+   "latent": [
+    "8",
+    1
+   ],
+   "control_type": "auto",
+   "intensity": "Normal (Normale) 1.2 · 50 %",
+   "auto_download": false,
+   "patch_name": "minimax_h3_fun_controlnet_union_pruned_int8_convrot.safetensors"
+  },
+  "_meta": {
+   "title": "PH3ControlSimple"
+  }
+ },
+ "10": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "9",
+    0
+   ],
+   "conditioning": [
+    "8",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "BasicGuider"
+  }
+ },
+ "11": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 42
+  },
+  "_meta": {
+   "title": "RandomNoise"
+  }
+ },
+ "12": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "13": {
+  "class_type": "ManualSigmas",
+  "inputs": {
+   "sigmas": "1.0, 0.984753, 0.967905, 0.951688, 0.925372, 0.881923, 0.810083, 0.528718, 0.0"
+  },
+  "_meta": {
+   "title": "ManualSigmas"
+  }
+ },
+ "14": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "11",
+    0
+   ],
+   "guider": [
+    "10",
+    0
+   ],
+   "sampler": [
+    "12",
+    0
+   ],
+   "sigmas": [
+    "13",
+    0
+   ],
+   "latent_image": [
+    "9",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "15": {
+  "class_type": "PH3ControlFirstFrame",
+  "inputs": {
+   "latent": [
+    "14",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "PH3ControlFirstFrame"
+  }
+ },
+ "16": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "15",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAEDecode"
+  }
+ },
+ "17": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "16",
+    0
+   ],
+   "filename_prefix": "ph3_pose_control"
+  },
+  "_meta": {
+   "title": "SaveImage"
+  }
+ }
+}
