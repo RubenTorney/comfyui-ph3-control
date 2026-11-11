@@ -71,6 +71,17 @@ Needs ComfyUI >= 0.44, no pip install. Restart ComfyUI. Download the v1 patch
 - [alibaba-pai/MiniMax-H3-Fun-Controlnet-Union](https://huggingface.co/alibaba-pai/MiniMax-H3-Fun-Controlnet-Union) — the Fun ControlNet (v1) · ComfyUI file: [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main/model_patches).
 - Official prompt guide: [MiniMax-AI/MiniMax-H3-Image — h3-image-prompt-writing](https://github.com/MiniMax-AI/MiniMax-H3-Image/tree/main/skills/h3-image-prompt-writing).
 
+## Compatibility
+
+| Model | Status |
+|---|---|
+| **P-H3-Image `int8_convrot`** ([PrunaAI/P-H3-Image-Comfy](https://huggingface.co/PrunaAI/P-H3-Image-Comfy)) | **Tested** — every result and number in this repo |
+| P-H3-Image `bf16`, `w4a8`, community GGUF builds | Not tested. Same architecture and nodes, so expected to work; quality and VRAM may differ |
+| Base **MiniMax H3 Image** ([MiniMaxAI](https://huggingface.co/MiniMaxAI/MiniMax-H3-Image) / [Comfy-Org](https://huggingface.co/Comfy-Org/MiniMax-H3-Image)), its fine-tunes and few-step distillations | Not tested. The settings (8-step schedule, strength, adaLN table) were tuned on P-H3-Image only |
+| MiniMax H3 video models | Not for this pack: use ComfyUI's own `MiniMaxH3FunControlNetApply` |
+
+Reports on other versions are welcome (open an issue with the model file and a sample).
+
 ## Use it
 
 ![ComfyUI screenshot of the basic workflow with the P-H3 Control node](assets/demo/workflow_screenshot.png)
