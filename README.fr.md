@@ -11,6 +11,15 @@ Nœuds ComfyUI qui font piloter le modèle d'image **P-H3-Image** par le Control
 *Même graine, quatre scènes. Colonnes : squelette de contrôle, texte seul, image de mannequin, mannequin en référence avec la
 grammaire de prompt officielle H3, ControlNet (ce pack). Détails et chiffres : [docs/COMPARISON.md](docs/COMPARISON.md).*
 
+## Pourquoi un ControlNet ?
+
+Un squelette donné à P-H3 comme simple image de référence marche mal (3 poses justes sur 9 dans nos tests). Une référence dit
+au modèle *quoi* montrer, pas *où* : elle est lue globalement, sans lien pixel à pixel avec l'image produite. Et un squelette OpenPose
+est un code couleur que le modèle n'a jamais appris : il recopie les bâtons colorés ou les ignore. Le ControlNet a été entraîné sur
+des paires squelette / photo et injecte la pose au bon endroit, dans le modèle, pendant la première moitié des pas.
+Précision de pose (PCK@0,1) : **0,435** texte seul, **0,815** avec ce pack. Un mannequin blanc en référence fait mieux qu'un squelette
+(6 poses courantes sur 6) mais reste approximatif sur la position exacte ; voir [docs/COMPARISON.md](docs/COMPARISON.md).
+
 ## Galerie (4 Mpx, générées directement)
 
 Contrôle appliqué directement à ~4 Mpx (1536x2688), sans passe d'agrandissement. Cliquer pour la taille réelle.

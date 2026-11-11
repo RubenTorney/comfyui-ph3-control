@@ -11,6 +11,15 @@ ComfyUI nodes that let the official MiniMax H3 Fun ControlNet (pose, depth, edge
 *Same seed, four scenes. Columns: control skeleton, text only, mannequin image, mannequin as reference with the official
 H3 prompt grammar, ControlNet (this pack). Details and numbers: [docs/COMPARISON.md](docs/COMPARISON.md).*
 
+## Why a ControlNet?
+
+A skeleton given to P-H3 as a plain reference image works poorly (3 of 9 poses right in our tests). A reference tells the model
+*what* to show, not *where*: it is read as a whole, with no pixel-to-pixel link to the output. And an OpenPose skeleton is a
+colour code the model never learned, so it either copies the coloured sticks or ignores them. The ControlNet was trained on
+skeleton / photo pairs and injects the pose at the right place inside the model during the first half of the steps.
+Pose accuracy (PCK@0.1): **0.435** text only, **0.815** with this pack. A white mannequin as reference does better than a
+skeleton (6 of 6 common poses) but stays approximate on the exact position; see [docs/COMPARISON.md](docs/COMPARISON.md).
+
 ## Gallery (4 MP, generated directly)
 
 Control applied directly at ~4 MP (1536x2688), no upscaling pass. Click for full size.
